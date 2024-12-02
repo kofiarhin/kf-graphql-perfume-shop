@@ -5,7 +5,7 @@ const App = () => {
   console.log(data);
   return (
     <div>
-      <h1>Hello world</h1>
+      <h1 className="heading">Hello world</h1>
     </div>
   );
 };
