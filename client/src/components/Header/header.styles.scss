@@ -1,0 +1,19 @@
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0rem;
+  nav {
+    a {
+      display: inline-block;
+      margin-left: 1rem;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      margin-left: 1rem;
+    }
+  }
+}

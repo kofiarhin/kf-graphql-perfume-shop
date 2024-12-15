@@ -1,12 +1,28 @@
-import { useQuery } from "@apollo/client";
-import { GET_PRODUCTS } from "./graphql/queries/productQuery";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home/Home";
+import Login from "./Pages/Login/Login";
+import Register from "./Pages/Resgister/Register";
+import Header from "./components/Header/Header";
+import NotFound from "./Pages/NotFound/NotFound";
+import Profile from "./Pages/Profile/Profile";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+
 const App = () => {
-  const { error, loading, data } = useQuery(GET_PRODUCTS);
-  console.log(data);
   return (
-    <div>
-      <h1 className="heading">Hello world</h1>
-    </div>
+    <>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </>
   );
 };
 
