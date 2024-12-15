@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LOGIN_USER } from "../../graphql/mutations";
+import { LOGIN_USER } from "../../graphql/mutation/authMuation";
 import { useMutation } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { loginSuccess, reset } from "../../redux/auth/authSlice";

@@ -9,3 +9,12 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const REGISTER_uSER = gql`
+  mutation RegisterUserMutation($registerUserInput: RegisterUserInput) {
+    registerUser(registerUserInput: $registerUserInput) {
+      name
+      email
+    }
+  }
+`;
