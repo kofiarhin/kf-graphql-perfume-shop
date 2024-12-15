@@ -1,11 +1,7 @@
 import Product from "../model/productModel.js";
-import {
-  createProduct,
-  getProduct,
-  removeProduct,
-  updateProductItem,
-} from "../services/utility.js";
+import services from "../services/services.js";
 import { GraphQLError } from "graphql";
+import { generateToken } from "../helper/utility.js";
 
 const testProduct = {
   name: "test",
@@ -19,9 +15,11 @@ const resolvers = {
       const products = await Product.find();
       return products;
     },
+    // get product
     product: async (_, args) => {
       const { id } = args;
-      const product = await getProduct(id);
+      const product = await services.getProduct(id);
+
       if (product.error) {
         throw new GraphQLError("PRODUCT NOT FOUND", {
           extensions: {
@@ -33,18 +31,56 @@ const resolvers = {
     },
   },
   Mutation: {
+    // register User
+    registerUser: async (_, args) => {
+      const user = await services.registerUser(args.registerUserInput);
+      if (user.error) {
+        throw new GraphQLError("USER NOT CREATED", {
+          extensions: {
+            code: user.error,
+          },
+        });
+      }
+      return user;
+    },
+
+    // loginUser
+    loginUser: async (_, args) => {
+      const user = await services.loginUser(args.loginUserInput);
+      if (user.error) {
+        throw new GraphQLError("NOT AUTHORIZED", {
+          extensions: {
+            code: user.error,
+          },
+        });
+      }
+      return user;
+    },
+    // create product
     createProduct: async (_, args) => {
-      const product = await createProduct(args.createProductInput);
+      const product = await services.createProduct(args.createProductInput);
       return product;
     },
+    // delete product
     deleteProduct: async (_, args) => {
-      const product = await removeProduct(args.id);
+      const product = await services.deleteProduct(args.id);
       return product;
     },
+
+    // updaste product
     updateProduct: async (_, args) => {
       const { id, updateProductInput } = args;
-      console.log(id, updateProductInput);
-      const updatedProduct = await updateProductItem(id, updateProductInput);
+      const updatedProduct = await services.updateProduct(
+        id,
+        updateProductInput
+      );
+      if (updatedProduct.error) {
+        throw new GraphQLError("PRODUCT NOT UPDATED", {
+          extensions: {
+            code: "there was a problem updating product",
+          },
+        });
+      }
       return updatedProduct;
     },
   },
