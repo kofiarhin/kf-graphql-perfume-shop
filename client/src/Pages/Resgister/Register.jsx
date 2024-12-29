@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { REGISTER_uSER } from "../../graphql/mutation/authMuation";
 import { useMutation } from "@apollo/client";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess, reset } from "../../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +15,14 @@ const Register = () => {
     email: "test3@gmail.com",
     password: "password",
   });
+
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/profile");
+    }
+  }, [user]);
 
   const { email, password, name } = formData;
 

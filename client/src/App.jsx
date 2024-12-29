@@ -6,6 +6,8 @@ import Header from "./components/Header/Header";
 import NotFound from "./Pages/NotFound/NotFound";
 import Profile from "./Pages/Profile/Profile";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Cart from "./Pages/Cart/Cart";
+import Orders from "./Pages/Orders/Orders";
 
 const App = () => {
   return (
@@ -16,7 +18,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/cart" element={<Cart />} />
           <Route element={<PrivateRoute />}>
+            <Route path="/orders" element={<Orders />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="*" element={<NotFound />} />

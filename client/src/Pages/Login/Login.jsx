@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LOGIN_USER } from "../../graphql/mutation/authMuation";
 import { useMutation } from "@apollo/client";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess, reset } from "../../redux/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +9,14 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/profile");
+    }
+  }, [user]);
   const [loginUser] = useMutation(LOGIN_USER);
   const [formData, setFormData] = useState({
     email: "kofiarhin@gmail.com",

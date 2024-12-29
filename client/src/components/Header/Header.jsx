@@ -14,11 +14,17 @@ const Header = () => {
   return (
     <header>
       <div className="container">
-        <h1>Logo</h1>
+        <Link to="/">
+          <h1>Logo</h1>
+        </Link>
         <nav>
           <Link to="/"> Home</Link>
+          <Link to="/cart">
+            Cart <span>(3)</span>{" "}
+          </Link>
           {user ? (
             <>
+              <Link to="/orders">Orders</Link>
               <button onClick={handleLogout}> Logout</button>
             </>
           ) : (
